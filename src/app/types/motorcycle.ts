@@ -5,4 +5,6 @@ export interface MotorcycleSaleOffer {
     mileageInKm: number;
     description: string;
     imageLink: string;
+    location: string;
+    distanceInKm: number;
 }

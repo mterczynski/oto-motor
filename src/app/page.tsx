@@ -11,6 +11,8 @@ const mockOffers: MotorcycleSaleOffer[] = [
     model: "MT-07",
     priceInPLN: 30000,
     imageLink: "/mt07.webp",
+    location: "Kraków",
+    distanceInKm: 5,
   },
   {
     brand: "Kawasaki",
@@ -19,6 +21,8 @@ const mockOffers: MotorcycleSaleOffer[] = [
     model: "Versys 600",
     priceInPLN: 34000,
     imageLink: "/versys600.webp",
+    location: "Wieliczka",
+    distanceInKm: 15,
   },
 ];
 
@@ -45,6 +49,9 @@ export default function Home() {
             <div>Cena: {formatNumber(offer.priceInPLN)} zł</div>
             <div>Marka: {offer.brand}</div>
             <div>Model: {offer.model}</div>
+            <div>
+              Lokacja: {offer.location}, {offer.distanceInKm} km
+            </div>
             <div>Przebieg: {formatNumber(offer.mileageInKm)} km</div>
             {/* <div>
               Opis:
