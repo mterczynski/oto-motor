@@ -1,4 +1,4 @@
-import { MotorcycleSaleOffer } from "../types/motorcycle";
+import { MotorcycleSaleOffer } from "../../types/motorcycle";
 
 export const dynamic = 'force-dynamic' // defaults to force-static
 export async function GET() {

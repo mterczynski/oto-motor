@@ -12,7 +12,7 @@ export default function Home() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/offers")
+    fetch("/api/offers")
       .then((res) => res.json())
       .then((data) => {
         setSaleOffers(data.data);
