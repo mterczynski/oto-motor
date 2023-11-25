@@ -33,6 +33,16 @@ export async function GET() {
             location: "Wieliczka",
             distanceInKm: 15,
         },
+        {
+            brand: "Piaggio",
+            description: "Sprzedam skuter po ojcu, szybki i zwinny",
+            mileageInKm: 45000,
+            model: "X9 500",
+            priceInPLN: 8000,
+            imageLink: "/x9_500.jpg",
+            location: "Wieliczka",
+            distanceInKm: 15,
+        },
     ];
 
     return Response.json({ data })
