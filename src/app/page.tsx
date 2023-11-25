@@ -22,15 +22,15 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-2xl">Oto Motor</h1>
+      <h1 className="text-5xl mb-12">Oto Motor</h1>
 
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex">
+        <div className="flex max-w-full flex-wrap gap-16">
           {saleOffers.map((offer, key) => (
             <div
-              className="flex flex-col mr-16 bg-neutral-200 text-black p-8 border-4"
+              className="flex flex-col bg-neutral-200 text-black p-8 border-4"
               key={key}
             >
               <Image alt="" src={offer.imageLink} width={200} height={200} />
