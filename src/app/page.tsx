@@ -29,9 +29,10 @@ export default function Home() {
       ) : (
         <div className="flex max-w-full flex-wrap gap-16">
           {saleOffers.map((offer, key) => (
-            <div
+            <a
               className="flex flex-col bg-neutral-200 text-black p-8 border-4"
               key={key}
+              href={`/offers?offerId=${offer.id}`}
             >
               <Image alt="" src={offer.imageLink} width={200} height={200} />
               <div>Cena: {formatNumber(offer.priceInPLN)} zł</div>
@@ -46,7 +47,7 @@ export default function Home() {
               <br />
               <p>{offer.description}</p>
             </div> */}
-            </div>
+            </a>
           ))}
         </div>
       )}

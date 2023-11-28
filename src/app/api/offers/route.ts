@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { MotorcycleSaleOffer } from "../../types/motorcycle";
 
 const mockOffers: MotorcycleSaleOffer[] = [
@@ -91,6 +92,17 @@ const mockOffers: MotorcycleSaleOffer[] = [
   },
 ];
 
-export async function GET() {
-  return Response.json({ data: [...mockOffers, ...mockOffers, ...mockOffers, ...mockOffers] })
+export async function GET(req: NextRequest) {
+  return Response.json({
+    data:
+      [...mockOffers, ...mockOffers, ...mockOffers, ...mockOffers]
+        .filter(offer => {
+          const offerIdFromParams = req.nextUrl.searchParams.get('offerId')
+          if (offerIdFromParams) {
+            return offer.id === offerIdFromParams
+          } else {
+            return true
+          }
+        })
+  })
 }
