@@ -24,9 +24,7 @@ export default function OfferDetails() {
   }, [searchParams]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-5xl mb-12">Oto Motor</h1>
-
+    <>
       {isLoading ? (
         <p>Loading...</p>
       ) : offer ? (
@@ -48,6 +46,6 @@ export default function OfferDetails() {
       ) : (
         `Offer with id ${searchParams.get("offerId")} not found`
       )}
-    </main>
+    </>
   );
 }

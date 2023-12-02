@@ -21,9 +21,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-5xl mb-12">Oto Motor</h1>
-
+    <main>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -42,11 +40,6 @@ export default function Home() {
                 Lokacja: {offer.location}, {offer.distanceInKm} km
               </div>
               <div>Przebieg: {formatNumber(offer.mileageInKm)} km</div>
-              {/* <div>
-              Opis:
-              <br />
-              <p>{offer.description}</p>
-            </div> */}
             </a>
           ))}
         </div>
