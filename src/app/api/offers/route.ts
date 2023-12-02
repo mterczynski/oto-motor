@@ -1,7 +1,8 @@
 import { NextRequest } from "next/server";
 import { MotorcycleSaleOffer } from "../../types/motorcycle";
 
-const mockOffers: MotorcycleSaleOffer[] = [
+// todo - consider moving to a separate file
+export const mockOffers: MotorcycleSaleOffer[] = [
   {
     id: "133d642b-8871-4c91-a5ae-b2a957a8c5f7",
     brand: "Yamaha",

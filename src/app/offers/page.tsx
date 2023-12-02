@@ -15,13 +15,10 @@ export default function OfferDetails() {
 
   useEffect(() => {
     const offerId = searchParams.get("offerId");
-    fetch(`/api/offers?offerId=${offerId}`)
+    fetch(`/api/offers/${offerId}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data);
-        if (Array.isArray(data.data)) {
-          setOffer(data.data[0]);
-        }
+        setOffer(data.data);
         setLoading(false);
       });
   }, [searchParams]);
