@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { MotorcycleSaleOffer } from "../types/motorcycle";
+import { SaleOffer } from "../types/saleOffer";
 import { useSearchParams } from "next/navigation";
 
 const formatNumber = (price: number) => {
@@ -10,7 +10,7 @@ const formatNumber = (price: number) => {
 
 export default function OfferDetails() {
   const searchParams = useSearchParams();
-  const [offer, setOffer] = useState<MotorcycleSaleOffer | null>(null);
+  const [offer, setOffer] = useState<SaleOffer | null>(null);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {

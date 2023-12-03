@@ -1,4 +1,4 @@
-export interface MotorcycleSaleOffer {
+export interface SaleOffer {
   id: string
   priceInPLN: number;
   brand: string;

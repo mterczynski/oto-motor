@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { MotorcycleSaleOffer } from "./types/motorcycle";
+import { SaleOffer } from "./types/saleOffer";
 
 const formatNumber = (price: number) => {
   return price.toLocaleString();
 };
 
 export default function Home() {
-  const [saleOffers, setSaleOffers] = useState<MotorcycleSaleOffer[]>([]);
+  const [saleOffers, setSaleOffers] = useState<SaleOffer[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
