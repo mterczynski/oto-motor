@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { CreateSaleOfferFormData } from './offers/create/page'
 import { prisma } from '../../prisma/prisma';
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 import { SaleOffer } from './types/saleOffer';
 
 export interface FormState {
@@ -14,11 +14,11 @@ export interface FormState {
 
 export async function createOffer(prevState: FormState, formData: FormData): Promise<FormState> {
   const requestBody = {
-    brand: formData.get('brand'),
-    description: formData.get('description'),
-    location: formData.get('location'),
+    brand: formData.get('brand') as string,
+    description: formData.get('description') as string,
+    location: formData.get('location') as string,
     mileageInKm: parseInt(formData.get('mileageInKm') as string),
-    model: formData.get('model'),
+    model: formData.get('model') as string,
     priceInPLN: parseInt(formData.get('priceInPLN') as string),
     imageLink: ''
   }
@@ -61,7 +61,21 @@ export async function createOffer(prevState: FormState, formData: FormData): Pro
       }
     }
   } catch (err) {
-    console.error('validation error', err)
+    const errors = (err as ZodError).flatten().fieldErrors
+
+    return {
+      message: 'error',
+      // todo - use an util for it, but check zod capabilities first
+      errors: {
+        brand: errors.brand?.[0] ?? '',
+        description: errors.description?.[0] ?? '',
+        location: errors.location?.[0] ?? '',
+        mileageInKm: errors.mileageInKm?.[0] ?? '',
+        model: errors.model?.[0] ?? '',
+        priceInPLN: errors.priceInPLN?.[0] ?? '',
+      },
+      fieldValues: requestBody
+    }
   }
 }
 
