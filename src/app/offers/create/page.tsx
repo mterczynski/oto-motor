@@ -23,7 +23,7 @@ function SubmitButton() {
 
   return (
     <button type="submit" aria-disabled={pending}>
-      Add
+      {pending ? "Submitting..." : "Submit"}
     </button>
   );
 }
