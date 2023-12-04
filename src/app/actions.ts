@@ -13,21 +13,12 @@ export interface FormState {
 }
 
 export async function createOffer(prevState: FormState, formData: FormData): Promise<FormState> {
-  // const schema = z.object({
-  //   todo: z.string().min(1),
-  // })
-  // const parse = schema.safeParse({
-  //   todo: formData.get('todo'),
-  // })
-
-
-  // todo - remove '!'s, use zod validation
   const requestBody = {
-    brand: formData.get('brand')!,
-    description: formData.get('description')!,
-    location: formData.get('location')!,
+    brand: formData.get('brand'),
+    description: formData.get('description'),
+    location: formData.get('location'),
     mileageInKm: parseInt(formData.get('mileageInKm') as string),
-    model: formData.get('model')!,
+    model: formData.get('model'),
     priceInPLN: parseInt(formData.get('priceInPLN') as string),
     imageLink: ''
   }
