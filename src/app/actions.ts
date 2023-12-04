@@ -84,3 +84,12 @@ export async function getOffers(): Promise<SaleOffer[]> {
     return { ...offer, distanceInKm: 0 }
   });
 }
+
+export async function getOfferById(id: number): Promise<SaleOffer | null> {
+  const foundOffer = await prisma.saleOffer.findFirst({ where: { id } })
+
+  if (foundOffer) {
+    return { ...foundOffer, distanceInKm: 0, }
+  }
+  return null
+}

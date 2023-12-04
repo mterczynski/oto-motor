@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { SaleOffer } from "../types/saleOffer";
 import { useSearchParams } from "next/navigation";
+import { getOfferById } from "../actions";
 
 const formatNumber = (price: number) => {
   return price?.toLocaleString();
@@ -15,12 +16,11 @@ export default function OfferDetails() {
 
   useEffect(() => {
     const offerId = searchParams.get("offerId");
-    fetch(`/api/offers/${offerId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setOffer(data.data);
-        setLoading(false);
-      });
+
+    getOfferById(Number(offerId)).then((offer) => {
+      setOffer(offer);
+      setLoading(false);
+    });
   }, [searchParams]);
 
   return (
@@ -29,7 +29,9 @@ export default function OfferDetails() {
         <p>Loading...</p>
       ) : offer ? (
         <div className="flex flex-col bg-neutral-200 text-black p-8 border-4">
-          <Image alt="" src={offer.imageLink} width={200} height={200} />
+          {offer.imageLink && (
+            <Image alt="" src={offer.imageLink} width={200} height={200} />
+          )}
           <div>Cena: {formatNumber(offer.priceInPLN)} zł</div>
           <div>Marka: {offer.brand}</div>
           <div>Model: {offer.model}</div>
