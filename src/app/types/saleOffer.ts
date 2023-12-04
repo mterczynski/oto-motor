@@ -1,11 +1,11 @@
 export interface SaleOffer {
-  id: string
+  id: number
   priceInPLN: number;
   brand: string;
   model: string;
   mileageInKm: number;
-  description: string;
-  imageLink: string;
+  imageLink?: string | null;
   location: string;
   distanceInKm: number;
+  description?: string | null;
 }

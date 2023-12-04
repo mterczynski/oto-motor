@@ -18,9 +18,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-          <h1 className="text-5xl mb-12">
-            <a href="/">Oto Motor</a>
-          </h1>
+          <div>
+            <h1 className="text-5xl mb-12">
+              <a href="/">Oto Motor</a>
+            </h1>
+
+            <button className="bg-green-500">
+              <a href="/offers/create">Utwórz ofertę +</a>
+            </button>
+          </div>
+
           <div>{children}</div>
         </main>
       </body>

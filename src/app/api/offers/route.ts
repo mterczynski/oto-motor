@@ -4,7 +4,7 @@ import { SaleOffer } from "../../types/saleOffer";
 // todo - consider moving to a separate file
 export const mockOffers: SaleOffer[] = [
   {
-    id: "133d642b-8871-4c91-a5ae-b2a957a8c5f7",
+    id: 0,
     brand: "Yamaha",
     description: "Witam, mam do sprzedania nowiutką Yamahę",
     mileageInKm: 10000,
@@ -15,7 +15,7 @@ export const mockOffers: SaleOffer[] = [
     distanceInKm: 5,
   },
   {
-    id: "7df45ec3-e907-4994-8591-33f0ef163c26",
+    id: 1,
     brand: "Kawasaki",
     description: "Witam, mam do sprzedania nową Kawę",
     mileageInKm: 20000,
@@ -26,7 +26,7 @@ export const mockOffers: SaleOffer[] = [
     distanceInKm: 15,
   },
   {
-    id: "9c43b077-4f40-4a7c-95dd-6a8ac59b14fc",
+    id: 2,
     brand: "Piaggio",
     description: "Sprzedam skuter po ojcu, szybki i zwinny",
     mileageInKm: 45000,
@@ -37,7 +37,7 @@ export const mockOffers: SaleOffer[] = [
     distanceInKm: 15,
   },
   {
-    id: "388f50a6-e808-4e9d-9db9-5a1b7bea560d",
+    id: 3,
     brand: "Yamaha",
     description: "Nowa Yamaha, spełnij swoje marzenia",
     mileageInKm: 0,
@@ -48,7 +48,7 @@ export const mockOffers: SaleOffer[] = [
     distanceInKm: 80,
   },
   {
-    id: "2957817b-ffed-49ce-98da-e6ef4201e1ab",
+    id: 4,
     brand: "Honda",
     description: "Witam, mam do sprzedania nowy motor",
     mileageInKm: 28000,
@@ -59,7 +59,7 @@ export const mockOffers: SaleOffer[] = [
     distanceInKm: 7,
   },
   {
-    id: "8407bb54-6ab4-4add-acf8-901979dcbb9b",
+    id: 5,
     brand: "Honda",
     description: "Witam, mam do sprzedania nowy motor",
     mileageInKm: 0,
@@ -70,7 +70,7 @@ export const mockOffers: SaleOffer[] = [
     distanceInKm: 3,
   },
   {
-    id: "4df981c4-40ab-455c-8bbf-2ef1e4b402fd",
+    id: 6,
     brand: "Yamaha",
     description: "Nowa Yamaha, spełnij swoje marzenia",
     mileageInKm: 0,
@@ -81,7 +81,7 @@ export const mockOffers: SaleOffer[] = [
     distanceInKm: 3,
   },
   {
-    id: "823b0543-1890-40e1-a515-1944c14e65a1",
+    id: 7,
     brand: "Suzuki",
     description: "Stary, ale jary",
     mileageInKm: 65000,
@@ -100,7 +100,7 @@ export async function GET(req: NextRequest) {
         .filter(offer => {
           const offerIdFromParams = req.nextUrl.searchParams.get('offerId')
           if (offerIdFromParams) {
-            return offer.id === offerIdFromParams
+            return offer.id.toString() === offerIdFromParams
           } else {
             return true
           }

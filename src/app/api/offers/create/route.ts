@@ -1,12 +1,10 @@
 
-import { NextRequest } from "next/server"
+// import { NextRequest } from "next/server"
+// import { prisma } from '../../../../../prisma/prisma'
 
-export async function POST(req: NextRequest) {
-  // todo - create offer, add it to database, return it
+// export async function POST(req: NextRequest) {
+//   const createdOffer = await prisma.saleOffer.create(req.body);
 
-  const createdOffer = req.body // todo
+//   return Response.json(createdOffer)
+// }
 
-  return Response.json({
-    data: createdOffer
-  })
-}

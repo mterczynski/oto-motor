@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { SaleOffer } from "./types/saleOffer";
+import { getOffers } from "./actions";
 
 const formatNumber = (price: number) => {
   return price.toLocaleString();
@@ -12,12 +13,10 @@ export default function Home() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/offers")
-      .then((res) => res.json())
-      .then((data) => {
-        setSaleOffers(data.data);
-        setLoading(false);
-      });
+    getOffers().then((offers) => {
+      setSaleOffers(offers);
+      setLoading(false);
+    });
   }, []);
 
   return (
@@ -32,7 +31,9 @@ export default function Home() {
               key={key}
               href={`/offers?offerId=${offer.id}`}
             >
-              <Image alt="" src={offer.imageLink} width={200} height={200} />
+              {offer.imageLink && (
+                <Image alt="" src={offer.imageLink} width={200} height={200} />
+              )}
               <div>Cena: {formatNumber(offer.priceInPLN)} zł</div>
               <div>Marka: {offer.brand}</div>
               <div>Model: {offer.model}</div>
