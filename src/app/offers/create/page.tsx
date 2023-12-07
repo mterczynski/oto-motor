@@ -3,6 +3,7 @@
 import { useFormStatus, useFormState } from "react-dom";
 import { createOffer } from "@/app/actions";
 import { SaleOffer } from "@/app/types/saleOffer";
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 export type CreateSaleOfferFormData = Pick<
   SaleOffer,
@@ -17,6 +18,15 @@ const initialFormValue: CreateSaleOfferFormData = {
   model: "",
   priceInPLN: 0,
 };
+
+function Input(
+  props: DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >
+) {
+  return <input className="text-black" {...props} />;
+}
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -38,57 +48,27 @@ export default function AddForm() {
       <label htmlFor="input-brand" className="text-white">
         Marka
       </label>
-      <input
-        className="text-black"
-        type="text"
-        name="brand"
-        required
-        id="input-brand"
-      />
+      <Input type="text" name="brand" required id="input-brand" />
 
       <label htmlFor="input-model" className="text-white">
         Model
       </label>
-      <input
-        className="text-black"
-        type="text"
-        name="model"
-        required
-        id="input-model"
-      />
+      <Input type="text" name="model" required id="input-model" />
 
       <label htmlFor="input-mileageInKm" className="text-white">
         Przebieg w km
       </label>
-      <input
-        className="text-black"
-        type="number"
-        name="mileageInKm"
-        required
-        id="input-mileageInKm"
-      />
+      <Input type="number" name="mileageInKm" required id="input-mileageInKm" />
 
       <label htmlFor="input-price" className="text-white">
         Cena w zł
       </label>
-      <input
-        className="text-black"
-        type="number"
-        name="priceInPLN"
-        required
-        id="input-price"
-      />
+      <Input type="number" name="priceInPLN" required id="input-price" />
 
       <label htmlFor="input-location" className="text-white">
         Lokalizacja
       </label>
-      <input
-        className="text-black"
-        type="text"
-        name="location"
-        required
-        id="input-location"
-      />
+      <Input type="text" name="location" required id="input-location" />
 
       <label htmlFor="input-description" className="text-white">
         Opis
@@ -103,15 +83,8 @@ export default function AddForm() {
       <label htmlFor="input-image" className="text-white">
         Załącz zdjęcie
       </label>
-      <input
-        className="text-black"
-        name="image"
-        type="file"
-        id="input-image"
-        accept="image/*"
-      />
+      <Input name="image" type="file" id="input-image" accept="image/*" />
 
-      {/* <input type="image" /> */}
       <SubmitButton />
     </form>
   );
