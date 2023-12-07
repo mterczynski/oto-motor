@@ -83,7 +83,13 @@ export default function AddForm() {
       <label htmlFor="input-image" className="text-white">
         Załącz zdjęcie
       </label>
-      <Input name="image" type="file" id="input-image" accept="image/*" />
+      <Input
+        name="image"
+        type="file"
+        id="input-image"
+        accept="image/*"
+        required
+      />
 
       <SubmitButton />
     </form>
