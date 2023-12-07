@@ -23,7 +23,7 @@ export default function RootLayout({
               <a href="/">Oto Motor</a>
             </h1>
 
-            <button className="bg-green-500">
+            <button className="bg-green-500 p-4 mb-4">
               <a href="/offers/create">Utwórz ofertę +</a>
             </button>
           </div>
