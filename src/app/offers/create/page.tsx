@@ -1,10 +1,18 @@
 "use client";
 
-import { useFormStatus, useFormState } from "react-dom";
 import { createOffer } from "@/app/actions";
+import { offerImageSize } from "@/app/globals";
 import { SaleOffer } from "@/app/types/saleOffer";
-import { DetailedHTMLProps, InputHTMLAttributes, useEffect } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {
+  ChangeEvent,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  useEffect,
+  useState,
+} from "react";
+import { useFormState, useFormStatus } from "react-dom";
 
 export type CreateSaleOfferFormData = Pick<
   SaleOffer,
@@ -44,6 +52,13 @@ export default function AddForm() {
     fieldValues: initialFormValue,
   });
   const { push } = useRouter();
+  const [selectedImage, setSelectedImage] = useState<File>();
+  const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target?.files && target?.files.length > 0) {
+      setSelectedImage(target?.files[0]);
+    }
+  };
 
   useEffect(() => {
     if (state?.message === "success") {
@@ -99,7 +114,16 @@ export default function AddForm() {
         id="input-image"
         accept="image/*"
         required
+        onChange={onImageChange}
       />
+      {selectedImage && (
+        <Image
+          src={URL.createObjectURL(selectedImage)}
+          width={offerImageSize.width}
+          height={offerImageSize.height}
+          alt=""
+        />
+      )}
 
       <SubmitButton />
     </form>

@@ -9,6 +9,7 @@ import { prisma } from '../../prisma/prisma';
 import { s3Client } from './awsS3Client';
 import { CreateSaleOfferFormData } from './offers/create/page';
 import { SaleOffer } from './types/saleOffer';
+import { offerImageSize } from "./globals";
 
 export interface FormState {
   message?: "success" | 'error',
@@ -24,7 +25,7 @@ async function uploadImage(image: File) {
   // todo - move bucket link to .env or to an settings object
   const bucketLink = 'https://next-app-demo-bucket.s3.eu-central-1.amazonaws.com'
   const imageBuffer = await image.arrayBuffer()
-  const resizedImage = await sharp(imageBuffer).resize(266, 200).toBuffer()
+  const resizedImage = await sharp(imageBuffer).resize(offerImageSize.width, offerImageSize.height).toBuffer()
   // todo - move bucket name to .env or to an settings object
   const putCommand = new PutObjectCommand({ Bucket: 'next-app-demo-bucket', Key: imageName, Body: resizedImage })
 
