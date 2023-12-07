@@ -54,6 +54,7 @@ export default function OfferDetails() {
             Lokacja: {offer.location}, {offer.distanceInKm} km
           </div>
           <div>Przebieg: {formatNumber(offer.mileageInKm)} km</div>
+          <div>Utworzono: {offer?.createdAt?.toDateString()}</div>
           <div>
             Opis:
             <br />

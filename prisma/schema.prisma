@@ -8,7 +8,7 @@ datasource db {
 }
 
 model SaleOffer {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   description String?
   priceInPLN  Float
   brand       String
@@ -16,4 +16,5 @@ model SaleOffer {
   mileageInKm Int
   imageLink   String?
   location    String
+  createdAt   DateTime @default(now())
 }

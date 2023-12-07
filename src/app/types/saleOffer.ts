@@ -8,4 +8,5 @@ export interface SaleOffer {
   location: string;
   distanceInKm: number;
   description?: string | null;
+  createdAt?: Date | null;
 }
