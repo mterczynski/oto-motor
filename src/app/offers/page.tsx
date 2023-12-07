@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { SaleOffer } from "../types/saleOffer";
 import { useSearchParams } from "next/navigation";
 import { deleteOfferById, getOfferById } from "../actions";
+import { useRouter } from "next/navigation";
 
 const formatNumber = (price: number) => {
   return price?.toLocaleString();
@@ -13,17 +14,20 @@ export default function OfferDetails() {
   const searchParams = useSearchParams();
   const [offer, setOffer] = useState<SaleOffer | null>(null);
   const [isLoading, setLoading] = useState(true);
-  const onDeleteButtonClick = useCallback(() => {
+  const { push } = useRouter();
+
+  const onDeleteButtonClick = useCallback(async () => {
     if (!offer) {
       return;
     }
     try {
       // todo - redirect to offers, show a notification that offer was deleted successfully
-      deleteOfferById(offer.id);
+      await deleteOfferById(offer.id);
+      push("/");
     } catch (error) {
       // todo - show alert with a proper error message
     }
-  }, [offer]);
+  }, [offer, push]);
 
   useEffect(() => {
     const offerId = searchParams.get("offerId");
