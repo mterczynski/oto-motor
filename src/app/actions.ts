@@ -1,15 +1,32 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { CreateSaleOfferFormData } from './offers/create/page'
-import { prisma } from '../../prisma/prisma';
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { revalidatePath } from 'next/cache';
+import { v4 as uuidv4 } from 'uuid';
 import { ZodError, z } from 'zod';
+import { prisma } from '../../prisma/prisma';
+import { s3Client } from './awsS3Client';
+import { CreateSaleOfferFormData } from './offers/create/page';
 import { SaleOffer } from './types/saleOffer';
 
 export interface FormState {
   message?: "success" | 'error',
   errors?: Partial<Record<keyof CreateSaleOfferFormData, string>>,
   fieldValues: CreateSaleOfferFormData
+}
+
+async function uploadImage(image: File) {
+  const originalImageName = image.name
+  const fileExtension = originalImageName.split('.').slice(-1)[0]
+  const imageName = 'image' + uuidv4() + '.' + fileExtension
+  // todo - move bucket link to .env or to an settings object
+  const bucketLink = 'https://next-app-demo-bucket.s3.eu-central-1.amazonaws.com'
+  const imageBuffer = await image.arrayBuffer()
+  // todo - move bucket name to .env or to an settings object
+  const putCommand = new PutObjectCommand({ Bucket: 'next-app-demo-bucket', Key: imageName, Body: imageBuffer as any })
+
+  await s3Client.send(putCommand)
+  return { imageName, imageLink: `${bucketLink}/${imageName}` }
 }
 
 export async function createOffer(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -22,6 +39,28 @@ export async function createOffer(prevState: FormState, formData: FormData): Pro
     priceInPLN: parseInt(formData.get('priceInPLN') as string),
     imageLink: ''
   }
+
+  const image = formData.get('image') as File | undefined
+
+  if (!image) {
+    return {
+      message: "error",
+      errors: {
+        // todo - fill errors for image input
+      },
+      fieldValues: {
+        brand: '',
+        description: '',
+        location: '',
+        mileageInKm: 0,
+        model: '',
+        priceInPLN: 0
+      }
+    }
+  }
+
+  const { imageLink } = await uploadImage(image)
+  requestBody.imageLink = imageLink
 
   const schema = z.object({
     brand: z.string().min(1),
@@ -80,9 +119,17 @@ export async function createOffer(prevState: FormState, formData: FormData): Pro
 }
 
 export async function getOffers(): Promise<SaleOffer[]> {
-  return (await prisma.saleOffer.findMany({})).map(offer => {
-    return { ...offer, distanceInKm: 0 }
-  });
+  try {
+    return (await prisma.saleOffer.findMany({})).map(offer => {
+      return { ...offer, distanceInKm: 0 }
+    });
+  } catch (error: any) {
+    if (error?.code === 'P2021') { // P2021 = table not found
+      return []
+    } else {
+      throw error
+    }
+  }
 }
 
 export async function getOfferById(id: number): Promise<SaleOffer | null> {
