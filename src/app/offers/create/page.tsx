@@ -3,7 +3,8 @@
 import { useFormStatus, useFormState } from "react-dom";
 import { createOffer } from "@/app/actions";
 import { SaleOffer } from "@/app/types/saleOffer";
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { DetailedHTMLProps, InputHTMLAttributes, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export type CreateSaleOfferFormData = Pick<
   SaleOffer,
@@ -42,6 +43,15 @@ export default function AddForm() {
   const [state, formAction] = useFormState(createOffer, {
     fieldValues: initialFormValue,
   });
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (state?.message === "success") {
+      const offerId = (state.fieldValues as any).id;
+      const redirectUrl = offerId ? `/offers?offerId=${offerId}` : "/";
+      push(redirectUrl);
+    }
+  }, [state, push]);
 
   return (
     <form action={formAction} className="flex flex-col">
