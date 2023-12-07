@@ -135,6 +135,12 @@ export async function getOffers(): Promise<SaleOffer[]> {
   }
 }
 
+export async function deleteOfferById(offerId: number) {
+  var result = await prisma.saleOffer.delete({ where: { id: offerId } })
+
+  return result
+}
+
 export async function getOfferById(id: number): Promise<SaleOffer | null> {
   const foundOffer = await prisma.saleOffer.findFirst({ where: { id } })
 
