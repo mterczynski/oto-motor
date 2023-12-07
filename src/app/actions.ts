@@ -2,6 +2,7 @@
 
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { revalidatePath } from 'next/cache';
+import sharp from "sharp";
 import { v4 as uuidv4 } from 'uuid';
 import { ZodError, z } from 'zod';
 import { prisma } from '../../prisma/prisma';
@@ -18,12 +19,14 @@ export interface FormState {
 async function uploadImage(image: File) {
   const originalImageName = image.name
   const fileExtension = originalImageName.split('.').slice(-1)[0]
+
   const imageName = 'image' + uuidv4() + '.' + fileExtension
   // todo - move bucket link to .env or to an settings object
   const bucketLink = 'https://next-app-demo-bucket.s3.eu-central-1.amazonaws.com'
   const imageBuffer = await image.arrayBuffer()
+  const resizedImage = await sharp(imageBuffer).resize(266, 200).toBuffer()
   // todo - move bucket name to .env or to an settings object
-  const putCommand = new PutObjectCommand({ Bucket: 'next-app-demo-bucket', Key: imageName, Body: imageBuffer as any })
+  const putCommand = new PutObjectCommand({ Bucket: 'next-app-demo-bucket', Key: imageName, Body: resizedImage })
 
   await s3Client.send(putCommand)
   return { imageName, imageLink: `${bucketLink}/${imageName}` }
