@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <main>
       {isLoading ? (
-        <p>Loading...</p>
+        <p>Ładowanie ofert...</p>
       ) : (
         <div className="flex max-w-full flex-wrap gap-16">
           {saleOffers.map((offer, key) => (

@@ -41,7 +41,7 @@ export default function OfferDetails() {
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <p>Ładowanie oferty...</p>
       ) : offer ? (
         <div className="flex flex-col bg-neutral-200 text-black p-8 border-4">
           {offer.imageLink && (
