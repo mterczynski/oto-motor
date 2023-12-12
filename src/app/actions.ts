@@ -5,11 +5,11 @@ import { revalidatePath } from 'next/cache';
 import sharp from "sharp";
 import { v4 as uuidv4 } from 'uuid';
 import { ZodError, z } from 'zod';
-import { prisma } from '../../prisma/prisma';
 import { s3Client } from './awsS3Client';
 import { CreateSaleOfferFormData } from './offers/create/page';
 import { SaleOffer } from './types/saleOffer';
 import { offerImageSize } from "./globals";
+import { db } from "@/server/db";
 
 export interface FormState {
   message?: "success" | 'error',
@@ -79,7 +79,7 @@ export async function createOffer(prevState: FormState, formData: FormData): Pro
   try {
     const validatedData = schema.parse(requestBody)
     try {
-      const createdOffer = await prisma.saleOffer.create({ data: validatedData });
+      const createdOffer = await db.saleOffer.create({ data: validatedData });
 
       revalidatePath('/')
       return {
@@ -124,7 +124,7 @@ export async function createOffer(prevState: FormState, formData: FormData): Pro
 
 export async function getOffers(): Promise<SaleOffer[]> {
   try {
-    return (await prisma.saleOffer.findMany({})).map(offer => {
+    return (await db.saleOffer.findMany({})).map(offer => {
       return { ...offer, distanceInKm: 0 }
     });
   } catch (error: any) {
@@ -137,13 +137,13 @@ export async function getOffers(): Promise<SaleOffer[]> {
 }
 
 export async function deleteOfferById(offerId: number) {
-  var result = await prisma.saleOffer.delete({ where: { id: offerId } })
+  var result = await db.saleOffer.delete({ where: { id: offerId } })
 
   return result
 }
 
 export async function getOfferById(id: number): Promise<SaleOffer | null> {
-  const foundOffer = await prisma.saleOffer.findFirst({ where: { id } })
+  const foundOffer = await db.saleOffer.findFirst({ where: { id } })
 
   if (foundOffer) {
     return { ...foundOffer, distanceInKm: 0, }
