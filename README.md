@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### Create .env.local file
 
-More info in .env file
+More info in .env.example file
 
 ### Running development server
 
