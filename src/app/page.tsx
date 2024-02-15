@@ -38,7 +38,7 @@ export default function Home() {
               <div>Marka: {offer.brand}</div>
               <div>Model: {offer.model}</div>
               <div>
-                Lokacja: {offer.location}, {offer.distanceInKm} km
+                Lokacja: {offer.location}, {offer.distanceInKm}
               </div>
               <div>Przebieg: {formatNumber(offer.mileageInKm)} km</div>
               <div>Utworzono: {offer?.createdAt?.toDateString()}</div>
