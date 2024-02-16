@@ -6,7 +6,7 @@ import sharp from "sharp";
 import { v4 as uuidv4 } from 'uuid';
 import { ZodError, z } from 'zod';
 import { s3Client } from './awsS3Client';
-import { CreateSaleOfferFormData } from './offers/create/page';
+import { CreateSaleOfferFormData } from './[lang]/offers/create/page';
 import { SaleOffer } from './types/saleOffer';
 import { offerImageSize } from "./globals";
 import { db } from "@/server/db";

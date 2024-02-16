@@ -1,20 +1,29 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { SaleOffer } from "../types/saleOffer";
+import { SaleOffer } from "../../types/saleOffer";
 import { useSearchParams } from "next/navigation";
-import { deleteOfferById, getOfferById } from "../actions";
+import { deleteOfferById, getOfferById } from "../../actions";
 import { useRouter } from "next/navigation";
+import { getDictionary } from "../../dictionaries";
 
 const formatNumber = (price: number) => {
   return price?.toLocaleString();
 };
 
-export default function OfferDetails() {
+export default function OfferDetails({
+  params: { lang },
+}: {
+  params: { lang: unknown };
+}) {
+  // const dict = await getDictionary(lang || 'en');
   const searchParams = useSearchParams();
   const [offer, setOffer] = useState<SaleOffer | null>(null);
   const [isLoading, setLoading] = useState(true);
   const { push } = useRouter();
+
+  debugger;
+  dict;
 
   const onDeleteButtonClick = useCallback(async () => {
     if (!offer) {

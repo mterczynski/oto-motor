@@ -47,7 +47,11 @@ function SubmitButton() {
   );
 }
 
-export default function AddForm() {
+export default function AddForm({
+  params: { lang },
+}: {
+  params: { lang: unknown };
+}) {
   const [state, formAction] = useFormState(createOffer, {
     fieldValues: initialFormValue,
   });
