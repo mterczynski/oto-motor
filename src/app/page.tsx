@@ -32,7 +32,13 @@ export default function Home() {
               href={`/offers?offerId=${offer.id}`}
             >
               {offer.imageLink && (
-                <Image alt="" src={offer.imageLink} width={200} height={200} />
+                <Image
+                  priority
+                  alt=""
+                  src={offer.imageLink}
+                  width={200}
+                  height={200}
+                />
               )}
               <div>Cena: {formatNumber(offer.priceInPLN)} zł</div>
               <div>Marka: {offer.brand}</div>
